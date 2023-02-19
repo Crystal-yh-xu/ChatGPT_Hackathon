@@ -1,6 +1,7 @@
 # ChatGPT_Hackathon
 
-
+This is a Streamlit website to communicate with data in Snowflake database through inputing natual language and generating SQL query in ChatGPT interface.
+Please heck out the instructions below to get set up and run the application.
 
 
 
