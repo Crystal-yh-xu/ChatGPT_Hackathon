@@ -31,7 +31,11 @@ streamlit hello
 ```
 Streamlit's Hello app should appear in a new tab in your web browser!
 
-5. Install other libraries in the new environment
+
+### Use your new environment
+1. In Anaconda Navigator, open a terminal in your environment (see step 2 above).
+
+2. Install other required libraries in the new environment
 ```sh
 pip install snowflake-connector-python
 ```
@@ -39,10 +43,7 @@ pip install snowflake-connector-python
 pip instal openai
 ```
 
-### Use your new environment
-1. In Anaconda Navigator, open a terminal in your environment (see step 2 above).
-
-2. In the terminal that appears, use Streamlit as usual:
+3. In the terminal that appears, use Streamlit as usual:
 ```sh
 streamlit run app.py
 ```
@@ -112,7 +113,14 @@ streamlit hello
 Streamlit's Hello app should appear in a new tab in your web browser!
 
 
-5. Install other libraries in the new environment
+
+### Use your new environment
+1. Any time you want to use the new environment, you first need to go to your project folder (where the `Pipenv` file lives) and run:
+```sh
+pipenv shell
+```
+
+2. Install other required libraries in the new environment
 ```sh
 pip install snowflake-connector-python
 ```
@@ -121,16 +129,10 @@ pip instal openai
 ```
 
 
-### Use your new environment
-1. Any time you want to use the new environment, you first need to go to your project folder (where the `Pipenv` file lives) and run:
-```sh
-pipenv shell
-```
-
-2. Now you can use Python and Streamlit as usual:
+3. Now you can use Python and Streamlit as usual:
 ```sh
 streamlit run myfile.py
 ```
 To stop the Streamlit server, press `ctrl-C`.
 
-3. When you're done using this environment, just type `exit` or press `ctrl-D` to return to your normal shell.
+4. When you're done using this environment, just type `exit` or press `ctrl-D` to return to your normal shell.
