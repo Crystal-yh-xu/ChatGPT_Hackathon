@@ -4,7 +4,7 @@
 
 
 
-## Run Streamlit app on Windows
+## 1. Run Streamlit app on Windows
 Streamlit's officially-supported environment manager on Windows is [Anaconda Navigator](https://docs.anaconda.com/navigator/).
 
 
@@ -43,7 +43,7 @@ streamlit run app.py
 
 
 
-## Run Streamlit app on macOS/Linux
+## 2. Run Streamlit app on macOS/Linux
 Streamlit's officially-supported environment manager for macOS and Linux is [Pipenv](https://pypi.org/project/pipenv/). See instructions on how to install and use it below.
 
 
