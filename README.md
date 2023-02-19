@@ -18,7 +18,13 @@ Next you'll need to set up your environment.
 
 1. Follow the steps provided by Anaconda to [set up and manage your environment](https://docs.anaconda.com/navigator/getting-started/#managing-environments) using the Anaconda Navigator.
 
-2. Select the "▶" icon next to your new environment. Then select "Open terminal":
+2. Select the "▶" icon next to your new environment. Then select "Open terminal". If terminal can't opened by click, just open cmd, and type conda to run in Anaconda environment and activate the new new environment you created.
+```sh
+conda
+```
+```sh
+activate <your new environment>
+```
 
 3. In the terminal that appears, type:
 ```sh
@@ -31,22 +37,26 @@ streamlit hello
 ```
 Streamlit's Hello app should appear in a new tab in your web browser!
 
-
-### Use your new environment
-1. In Anaconda Navigator, open a terminal in your environment (see step 2 above).
-
-2. Install other required libraries in the new environment
+5. Install other required libraries in the new environment
 ```sh
 pip install snowflake-connector-python
 ```
 ```sh
 pip instal openai
 ```
+```sh
+pip instal pandas
+```
 
-3. In the terminal that appears, use Streamlit as usual:
+
+### run the app in your new environment
+1. In the terminal that appears, navigate to the project folder, use Streamlit as usual:
 ```sh
 streamlit run app.py
 ```
+To stop the Streamlit server, press `ctrl-C`.
+
+2. When you're done using this environment, just type `exit` or press `ctrl-D` to return to your normal shell.
 
 
 
@@ -112,6 +122,17 @@ streamlit hello
 ```
 Streamlit's Hello app should appear in a new tab in your web browser!
 
+5. Install other required libraries in the new environment
+```sh
+pip install snowflake-connector-python
+```
+```sh
+pip instal openai
+```
+```sh
+pip instal pandas
+```
+
 
 
 ### Use your new environment
@@ -120,19 +141,10 @@ Streamlit's Hello app should appear in a new tab in your web browser!
 pipenv shell
 ```
 
-2. Install other required libraries in the new environment
-```sh
-pip install snowflake-connector-python
-```
-```sh
-pip instal openai
-```
-
-
-3. Now you can use Python and Streamlit as usual:
+2. Now you can use Python and Streamlit as usual:
 ```sh
 streamlit run myfile.py
 ```
 To stop the Streamlit server, press `ctrl-C`.
 
-4. When you're done using this environment, just type `exit` or press `ctrl-D` to return to your normal shell.
+3. When you're done using this environment, just type `exit` or press `ctrl-D` to return to your normal shell.
