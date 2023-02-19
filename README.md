@@ -30,6 +30,13 @@ streamlit hello
 ```
 Streamlit's Hello app should appear in a new tab in your web browser!
 
+5. Install other libraries in the new environment
+```sh
+pip install snowflake-connector-python
+```
+```sh
+pip instal openai
+```
 
 ### Use your new environment
 1. In Anaconda Navigator, open a terminal in your environment (see step 2 above).
@@ -48,8 +55,7 @@ Streamlit's officially-supported environment manager for macOS and Linux is [Pip
 
 
 ### Install Pipenv
-1. Install `pip`. More details about installing `pip` can be found in [pip
-s documentation](https://pip.pypa.io/en/stable/installation/#supported-methods).
+1. Install `pip`. More details about installing `pip` can be found in [pip documentation](https://pip.pypa.io/en/stable/installation/#supported-methods).
 
 On a macOS:
 ```sh
@@ -65,7 +71,7 @@ For other Linux distributions, see [How to install PIP for Python](https://www.m
 
 2. Install `pipenv`.
 ```sh
-pip3 install pipenv
+pip install pipenv
 ```
 
 
@@ -80,14 +86,14 @@ xcode-select --install
 ### Create a new environment with Streamlit
 1. Navigate to your project folder:
 ```sh
-cd myproject
+cd ChatGPT_Hackathon
 ```
 
 2. Create a new Pipenv environment in that folder and activate that environment:
 ```sh
 pipenv shell
 ```
-When you run the command above, a file called Pipfile will `appear` in `myprojects/`. This file is where your Pipenv environment and its dependencies are declared.
+When you run the command above, a file called Pipfile will `appear` in `ChatGPT_Hackathon/`. This file is where your Pipenv environment and its dependencies are declared.
 
 3. Install Streamlit in your environment:
 ```sh
@@ -103,6 +109,15 @@ pipenv install streamlit
 streamlit hello
 ```
 Streamlit's Hello app should appear in a new tab in your web browser!
+
+
+5. Install other libraries in the new environment
+```sh
+pip install snowflake-connector-python
+```
+```sh
+pip instal openai
+```
 
 
 ### Use your new environment
