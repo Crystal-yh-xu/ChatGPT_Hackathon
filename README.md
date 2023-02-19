@@ -48,7 +48,7 @@ Streamlit's officially-supported environment manager for macOS and Linux is [Pip
 
 
 ### Install Pipenv
-1. Install `${pip}`. More details about installing `${pip}` can be found in [pip
+1. Install `pip`. More details about installing `pip` can be found in [pip
 s documentation](https://pip.pypa.io/en/stable/installation/#supported-methods).
 
 On a macOS:
@@ -63,7 +63,7 @@ sudo apt-get install python3-pip
 
 For other Linux distributions, see [How to install PIP for Python](https://www.makeuseof.com/tag/install-pip-for-python/).
 
-2. Install `${pipenv}`.
+2. Install `pipenv`.
 ```sh
 pip3 install pipenv
 ```
@@ -87,13 +87,13 @@ cd myproject
 ```sh
 pipenv shell
 ```
-When you run the command above, a file called Pipfile will `${appear}` in `${myprojects/}`. This file is where your Pipenv environment and its dependencies are declared.
+When you run the command above, a file called Pipfile will `appear` in `myprojects/`. This file is where your Pipenv environment and its dependencies are declared.
 
 3. Install Streamlit in your environment:
 ```sh
 pip install streamlit
 ```
-Or if you want to create an easily-reproducible environment, replace `${pip}` with `${pipenv}` every time you install something:
+Or if you want to create an easily-reproducible environment, replace `pip` with `pipenv` every time you install something:
 ```sh
 pipenv install streamlit
 ```
@@ -106,7 +106,7 @@ Streamlit's Hello app should appear in a new tab in your web browser!
 
 
 ### Use your new environment
-1. Any time you want to use the new environment, you first need to go to your project folder (where the `${Pipenv}` file lives) and run:
+1. Any time you want to use the new environment, you first need to go to your project folder (where the `Pipenv` file lives) and run:
 ```sh
 pipenv shell
 ```
@@ -115,6 +115,6 @@ pipenv shell
 ```sh
 streamlit run myfile.py
 ```
-To stop the Streamlit server, press `${ctrl-C}`.
+To stop the Streamlit server, press `ctrl-C`.
 
-3. When you're done using this environment, just type `${exit}` or press `${ctrl-D}` to return to your normal shell.
+3. When you're done using this environment, just type `exit` or press `ctrl-D` to return to your normal shell.
