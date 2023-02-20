@@ -67,5 +67,5 @@ user_input = st.text_input("Ask a question about your data: (eg. retrieve all em
 sql_query = generate_sql(user_input)
 
 # Retrieve data from Snowflake using the SQL query
-if st.button("Generate"):
+if st.button("Retrieve"):
     execute_sql_query(sql_query)
