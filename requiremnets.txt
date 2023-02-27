@@ -1,3 +1,4 @@
+-r https://raw.githubusercontent.com/snowflakedb/snowflake-connector-python/v3.0.0/tested_requirements/requirements_36.reqs
 autopep8==1.6.0
 certifi==2021.10.8
 charset-normalizer==2.0.7
@@ -23,4 +24,3 @@ toml==0.10.2
 tqdm==4.62.3
 urllib3==1.26.7
 Werkzeug==2.0.2
--r https://raw.githubusercontent.com/snowflakedb/snowflake-connector-python/v3.0.0/tested_requirements/requirements_36.reqs
