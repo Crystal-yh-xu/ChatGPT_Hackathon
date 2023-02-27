@@ -1,0 +1,42 @@
+ward_id,ward_name
+1,Intensive Care Unit (ICU)
+2,Anesthetics
+3,Cardiology
+4,Gastroenterology
+5,General Surgery
+6,Gynecology
+7,Nephrology
+8,Neurology
+9,Occupational Therapy
+10,Ophthalmology
+11,Urology
+12,Renal
+13,Otolaryngology (Ear Nose and Throat)
+14,Haematology
+15,Oncology
+16,Orthopaedics
+17,Burn Center (Burn Unit or Burns Unit)
+18,Accident and emergency (A&E)
+19,Admissions
+20,Breast Screening
+21,Central Sterile Services Department (CSSD)
+22,Chaplaincy
+23,Coronary Care Unit (CCU)
+24,Critical Care
+25,Diagnostic Imaging
+26,Elderly Services
+27,Infection Control
+28,Information Management
+29,Maternity
+30,Microbiology
+31,Neonatal
+32,Nutrition and Dietetics
+33,Obstetrics/Gynecology
+34,Pain Management
+35,Pharmacy
+36,Physiotherapy
+37,Radiology
+38,Radiotherapy
+39,Rheumatology
+40,Sexual Health
+41,Social Work
