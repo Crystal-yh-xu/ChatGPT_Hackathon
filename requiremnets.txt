@@ -1,4 +1,4 @@
-snowflake-connector-python==2.8.0
+snowflake-connector-python
 autopep8==1.6.0
 certifi==2022.12.7
 charset-normalizer==2.1.1
