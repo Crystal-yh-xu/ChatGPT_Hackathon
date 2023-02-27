@@ -4,18 +4,20 @@ import openai
 import pandas as pd
 from PIL import Image
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # Set up OpenAI API credentials
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Set up Snowflake credentials
-account = os.getenv("SNOWFLAKE_ACCOUNT")
-user = os.getenv("SNOWFLAKE_USER")
-password = os.getenv("SNOWFLAKE_PASSWORD")
-warehouse = os.getenv("SNOWFLAKE_WAREHOUSE")
-database = os.getenv("SNOWFLAKE_DATABASE")
-schema = os.getenv("SNOWFLAKE_SCHEMA")
+account = os.getenv('SNOWFLAKE_ACCOUNT')
+user = os.getenv('SNOWFLAKE_USER')
+password = os.getenv('SNOWFLAKE_PASSWORD')
+warehouse = os.getenv('SNOWFLAKE_WAREHOUSE')
+database = os.getenv('SNOWFLAKE_DATABASE')
+schema = os.getenv('SNOWFLAKE_SCHEMA')
 
 # Connect to Snowflake database
 conn = snowflake.connector.connect(
