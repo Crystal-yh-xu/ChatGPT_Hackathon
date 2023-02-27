@@ -1,21 +1,21 @@
 import streamlit as st
-from streamlit_searchbox import st_searchbox
 import snowflake.connector
 import openai
 import pandas as pd
 from PIL import Image
-import re
+import os
+
 
 # Set up OpenAI API credentials
-openai.api_key = "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"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Set up Snowflake credentials
-account = 'gw34330.ap-southeast-2'
-user = 'crystal'
-password = 'DTT!ChatGPT123'
-warehouse = 'compute_wh'
-database = 'hackathon'
-schema = 'dev'
+account = os.getenv("SNOWFLAKE_ACCOUNT")
+user = os.getenv("SNOWFLAKE_USER")
+password = os.getenv("SNOWFLAKE_PASSWORD")
+warehouse = os.getenv("SNOWFLAKE_WAREHOUSE")
+database = os.getenv("SNOWFLAKE_DATABASE")
+schema = os.getenv("SNOWFLAKE_SCHEMA")
 
 # Connect to Snowflake database
 conn = snowflake.connector.connect(
