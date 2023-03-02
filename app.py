@@ -76,8 +76,8 @@ def execute_sql_query(query, sql_query):
                 st.write(query)
             with st.expander("See SQL query:"):
                 st.write(sql_query)
-            with st.expander("Next best action recommendations:"):
-                st.write(generate_recommendations(query))
+            # with st.expander("Next best action recommendations:"):
+            #     st.write(generate_recommendations(query))
             # Display the data in a table
             st.write("Here's your data:")
             st.table(data)
