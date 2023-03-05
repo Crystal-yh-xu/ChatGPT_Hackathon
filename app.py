@@ -3,9 +3,9 @@ import snowflake.connector
 import openai
 import pandas as pd
 from PIL import Image
-import webbrowser
 import os
 from dotenv import load_dotenv
+import speech_recognition as sr
 
 # pip install dependent libraries 
 load_dotenv()
@@ -108,6 +108,22 @@ with col2_3:
     st.write("")
     st.write("")
     button_search = st.button("Search")
+
+# Speech to Text
+col7_1, col7_2, col7_3 = st.columns([3,4,2.5])
+with col7_2:    
+    if st.button('Convert speech to text'):
+        st.write('Listening...')
+        # Set up a speech recognizer object
+        r = sr.Recognizer()
+        # Start listening to the user's microphone input
+        with sr.Microphone() as source:
+            audio = r.listen(source)
+        # Convert the speech to text using the Google Speech Recognition API
+        text = r.recognize_google(audio)
+        # text = openai.Audio.transcribe("whisper-1", audio)
+        # Display the converted text in a text area
+        st.text_area('Converted text', value=text)
 
 # Example questions
 question_01 = "List all shifts which started on 5th Feb 2023 for the hospital named West Port Medical"

@@ -6,3 +6,7 @@ pycodestyle==2.8.0
 python-dateutil==2.8.2
 python-dotenv==0.19.2
 streamlit==1.19.0
+SpeechRecognition==3.9.0
+pipwin==0.5.2
+portaudio==19.7.0
+pyaudio==0.2.13
