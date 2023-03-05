@@ -3,6 +3,7 @@ import snowflake.connector
 import openai
 import pandas as pd
 from PIL import Image
+import webbrowser
 import os
 from dotenv import load_dotenv
 
@@ -31,38 +32,25 @@ conn = snowflake.connector.connect(
 )
 
 # Function to generate SQL queries from natural language input
-def generate_sql(query):
-    response = openai.Completion.create(
-        model="code-davinci-002",
-        prompt="### Snowflake SQL tables, with their properties:\n#\n# EMPLOYEES(EMPLOYEE_ID, FIRST_NAME, LAST_NAME, DISPLAY_NAME)\n# HOSPITALS(HOSPITAL_ID, HOSPITAL_NAME)\n# WARDS(WARD_ID, WARD_NAME)\n# TAGS(TAG_ID, TAG_NAME)\n# SHIFT_TYPE(SHIFT_TYPE_ID, SHIFT_NAME, SHIFT_START_TIME)\n# SHIFTS(SHIFT_DATE, HOSPITAL_ID, WARD_ID, SHIFT, SHIFT_TYPE_ID, START_DT, END_DT, EMPLOYEE_ID, TAG_ID)\n# INVENTORY_TYPE(INVENTORY_TYPE_ID, NAME, DESCRIPTION)\n# INVENTORY(INVENTORY_ID, INVENTORY_TYPE_ID, COMMISSIONED_DATE, IS_RETIRED)\n# PATIENTS(PATIENT_ID, NAME)\n# INVENTORY_ASSIGNMENTS(ASSIGNMENT_ID, INVENTORY_ID, PATIENT_ID, ASSIGNED_DATETIME, HOSPITAL_ID, WARD_ID, ASSIGNED_BY)\n#\n### A query to "+query+"\nSELECT",
-        temperature=0,
-        max_tokens=1024,
-        top_p=1,
-        frequency_penalty=0.0,
-        presence_penalty=0,
-        stop=["#", ";"],
-    )
-
-    sql_query = response.choices[0].text.strip() # re.findall(r"SELECT.*?;", response.choices[0].text.strip(), re.DOTALL)
-    return "SELECT "+sql_query+";"
-
-# Create a function to generate next best action recommendations
-def generate_recommendations(query):
+def generate_result(query):
     response = openai.Completion.create(
         model="text-davinci-003",
-        prompt="Act as a Next Best Action recommendation engine. Some just ask you about \""+query+"\". The response was positive. What should be the next action recommendation questions from you? Give 5 questions.",
-        temperature=0.8,
+        prompt=query,
+        temperature=0.5,
         max_tokens=1024,
         top_p=1,
-        frequency_penalty=0.0,
-        presence_penalty=0,
+        frequency_penalty=0.2,
+        presence_penalty=0
     )
-    recommendations = response.choices[0].text
-    return recommendations
+
+    result = response.choices[0].text.strip() # re.findall(r"SELECT.*?;", response.choices[0].text.strip(), re.DOTALL)
+    print(response)
+    return result
 
 # Create a function to retrieve data from Snowflake using a SQL query
 def get_data(sql_query):
     data = pd.read_sql_query(sql_query, conn)
+    print(data)
     return data
 
 # Create a function to execute SQL query
@@ -73,13 +61,17 @@ def execute_sql_query(query, sql_query):
             st.error('There is no data for your query!')
         else:
             with st.expander("See question:"):
-                st.write(query)
+                st.caption(query)
             with st.expander("See SQL query:"):
-                st.write(sql_query)
-            # with st.expander("Next best action recommendations:"):
-            #     st.write(generate_recommendations(query))
+                st.caption(sql_query)
+            with st.expander("See next best action recommendation questions:"):
+                st.caption(generate_result("Act as a Next Best Action recommendation engine. Some just ask you about "+query+". The response was positive. What should be the next action recommendation questions from you based on the below table information? \ntable EMPLOYEES, columns = [EMPLOYEE_ID, FIRST_NAME, LAST_NAME, DISPLAY_NAME];\ntable HOSPITALS, columns = [HOSPITAL_ID, HOSPITAL_NAME];\ntable WARDS, columns = [WARD_ID, WARD_NAME];\ntable TAGS, columns = [TAG_ID, TAG_NAME];\ntable SHIFT_TYPE, columns = [SHIFT_TYPE_ID, SHIFT_NAME, SHIFT_START_TIME];\ntable SHIFTS, columns = [SHIFT_DATE, HOSPITAL_ID, WARD_ID, SHIFT, SHIFT_TYPE_ID, START_DT, END_DT, EMPLOYEE_ID, TAG_ID];\ntable INVENTORY_TYPE, columns = [INVENTORY_TYPE_ID, NAME, DESCRIPTION];\ntable INVENTORY, columns = [INVENTORY_ID, INVENTORY_TYPE_ID, COMMISSIONED_DATE, IS_RETIRED];\ntable PATIENTS, columns = [PATIENT_ID, NAME];\ntable INVENTORY_ASSIGNMENTS, columns = [ASSIGNMENT_ID, INVENTORY_ID, PATIENT_ID, ASSIGNED_DATETIME, HOSPITAL_ID, WARD_ID, ASSIGNED_BY]\n#Give 5 questions."))
             # Display the data in a table
             st.write("Here's your data:")
+            try: 
+                st.write(generate_result("Generate a summary of question: "+query+"and answer below:\n"+data.to_string()))
+            except:
+                pass
             st.table(data)
     except Exception as e:
         st.error('Data extracted unsuccessful! Please describe you question more specific!')
@@ -107,7 +99,7 @@ with col2_2:
     st.text_input(
         label="Communicate witn your data",
         label_visibility="hidden",
-        placeholder="Ask a question about your data: eg. Retrieve all employees",
+        placeholder="Ask a question about your data: eg. Show all employees\' data",
         value="",
         key="user_input",
     )
@@ -141,26 +133,27 @@ with col5_3:
     button_example4 = st.button(question_04)
 
 # Retrieve data from Snowflake using the SQL query
+table_comment = "# Snowflake tables:\n# table EMPLOYEES, columns = [EMPLOYEE_ID, FIRST_NAME, LAST_NAME, DISPLAY_NAME];\n# table HOSPITALS, columns = [HOSPITAL_ID, HOSPITAL_NAME];\n# table WARDS, columns = [WARD_ID, WARD_NAME];\n# table TAGS, columns = [TAG_ID, TAG_NAME];\n# table SHIFT_TYPE, columns = [SHIFT_TYPE_ID, SHIFT_NAME, SHIFT_START_TIME];\n# table SHIFTS, columns = [SHIFT_DATE, HOSPITAL_ID, WARD_ID, SHIFT, SHIFT_TYPE_ID, START_DT, END_DT, EMPLOYEE_ID, TAG_ID];\n# table INVENTORY_TYPE, columns = [INVENTORY_TYPE_ID, NAME, DESCRIPTION];\n# table INVENTORY, columns = [INVENTORY_ID, INVENTORY_TYPE_ID, COMMISSIONED_DATE, IS_RETIRED];\n# table PATIENTS, columns = [PATIENT_ID, NAME];\n# table INVENTORY_ASSIGNMENTS, columns = [ASSIGNMENT_ID, INVENTORY_ID, PATIENT_ID, ASSIGNED_DATETIME, HOSPITAL_ID, WARD_ID, ASSIGNED_BY]\n# Generate a SQL query to "
 col6_1, col6_2, col6_3 = st.columns([1,3,1])
 with col6_2:
     if button_search:
         if st.session_state.user_input == "":
-            sql_query = generate_sql("Retrieve all employees")
-            execute_sql_query("Retrieve all employees", sql_query)
+            sql_query = generate_result(table_comment+"Show all employees' data")
+            execute_sql_query("Show all employees' data", sql_query)
         else:
-            sql_query = generate_sql(st.session_state.user_input)
+            sql_query = generate_result(table_comment+st.session_state.user_input)
             execute_sql_query(st.session_state.user_input, sql_query)
     elif button_example1:
-        sql_query = generate_sql(question_01)
+        sql_query = generate_result(table_comment+question_01)
         execute_sql_query(question_01, sql_query)
     elif button_example2:
-        sql_query = generate_sql(question_02)
+        sql_query = generate_result(table_comment+question_02)
         execute_sql_query(question_02, sql_query)
     elif button_example3:
-        sql_query = generate_sql(question_03)
+        sql_query = generate_result(table_comment+question_03)
         execute_sql_query(question_03, sql_query)
     elif button_example4:
-        sql_query = generate_sql(question_04)
+        sql_query = generate_result(table_comment+question_04)
         execute_sql_query(question_04, sql_query)
     else:
         st.write("")
