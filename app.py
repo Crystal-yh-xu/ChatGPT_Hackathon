@@ -50,7 +50,6 @@ def generate_result(query):
 # Create a function to retrieve data from Snowflake using a SQL query
 def get_data(sql_query):
     data = pd.read_sql_query(sql_query, conn)
-    print(data)
     return data
 
 # Create a function to execute SQL query
@@ -109,44 +108,57 @@ with col2_3:
     st.write("")
     button_search = st.button("Search")
 
-# Speech to Text
-col7_1, col7_2, col7_3 = st.columns([3,4,2.5])
-with col7_2:    
-    if st.button('Convert speech to text'):
-        st.write('Listening...')
-        # Set up a speech recognizer object
-        r = sr.Recognizer()
-        # Start listening to the user's microphone input
-        with sr.Microphone() as source:
-            audio = r.listen(source)
-        # Convert the speech to text using the Google Speech Recognition API
-        text = r.recognize_google(audio)
-        # text = openai.Audio.transcribe("whisper-1", audio)
-        # Display the converted text in a text area
-        st.text_area('Converted text', value=text)
+# # Speech to Text
+# col10_1, col10_2, col10_3 = st.columns([3,4,2.5])
+# with col10_2:    
+#     if st.button('Convert speech to text'):
+#         st.write('Listening...')
+#         # Set up a speech recognizer object
+#         r = sr.Recognizer()
+#         # Start listening to the user's microphone input
+#         with sr.Microphone() as source:
+#             audio = r.listen(source)
+#         # Convert the speech to text using the Google Speech Recognition API
+#         text = r.recognize_google(audio)
+#         # text = openai.Audio.transcribe("whisper-1", audio)
+#         # Display the converted text in a text area
+#         st.text_area('Converted text', value=text)
 
 # Example questions
-question_01 = "List all shifts which started on 5th Feb 2023 for the hospital named West Port Medical"
-question_02 = "Which employee has the most evening shifts between 5th Feb 2023 and 15th Feb 2023"
-question_03 = "List all morning shifts belong to employees whose names are Andrew Krotz and Caroline Laurin"
-question_04 = "Which hospital has the most shifts between 5th Feb 2023 and 10th Feb 2023"
+question_01 = "Is there any wheelchair available right now?"
+question_02 = "Who is currently rostered for general anaesthetic specialty?"
+question_03 = "Please generate a 3D model from chest xray scans for the patient in in ward Breast Screening?"
+question_04 = "Please generate a discharge summary report for the patient in Ward Intensive Care Unit (ICU)?"
+question_05 = "Give me a list of wards that are overstaffed or understaffed this weekend?"
+question_06 = "Does the patient in Critical Care ever had any advsere reactions or side effects to any medications?"
+question_07 = "Can you provide me with information on the latest evidence-based practices for managing patients with diabetes and suspected streptococcus infection?"
+question_08 = "Please generate an ED care plan for Patient Irha Sigler by utilising the triage assessment notes and evaluating the patient's vitals?"
 
 col3_1, col3_2, col3_3 = st.columns([3,4,2.5])
 with col3_2:
     st.write("Popular Questions:")
 
+# col4_1, col4_2, col4_3, col4_4, col4_5, col4_6, = st.columns([2,1.5,1.5,1.5,1.5,2])
 col4_1, col4_2, col4_3, col4_4, col4_5 = st.columns([3,1.85,1.85,0.8,2])
-
 with col4_2:  
     button_example1 = st.button(question_01)
 with col4_3:
     button_example2 = st.button(question_02)
+with col4_2:
+    button_example3 = st.button(question_03)
+with col4_3:
+    button_example4 = st.button(question_04)
 
+# col5_1, col5_2, col5_3, col5_4, col5_5, col5_6 = st.columns([2,1.5,1.5,1.5,1.5,2])
 col5_1, col5_2, col5_3, col5_4, col5_5 = st.columns([3,1.85,1.85,0.8,2])
 with col5_2:
-    button_example3 = st.button(question_03)
+    button_example5 = st.button(question_05)
 with col5_3:
-    button_example4 = st.button(question_04)
+    button_example6 = st.button(question_06)
+with col5_2:
+    button_example5 = st.button(question_07)
+with col5_3:
+    button_example6 = st.button(question_08)
 
 # Retrieve data from Snowflake using the SQL query
 table_comment = "# Snowflake tables:\n# table EMPLOYEES, columns = [EMPLOYEE_ID, FIRST_NAME, LAST_NAME, DISPLAY_NAME];\n# table HOSPITALS, columns = [HOSPITAL_ID, HOSPITAL_NAME];\n# table WARDS, columns = [WARD_ID, WARD_NAME];\n# table TAGS, columns = [TAG_ID, TAG_NAME];\n# table SHIFT_TYPE, columns = [SHIFT_TYPE_ID, SHIFT_NAME, SHIFT_START_TIME];\n# table SHIFTS, columns = [SHIFT_DATE, HOSPITAL_ID, WARD_ID, SHIFT, SHIFT_TYPE_ID, START_DT, END_DT, EMPLOYEE_ID, TAG_ID];\n# table INVENTORY_TYPE, columns = [INVENTORY_TYPE_ID, NAME, DESCRIPTION];\n# table INVENTORY, columns = [INVENTORY_ID, INVENTORY_TYPE_ID, COMMISSIONED_DATE, IS_RETIRED];\n# table PATIENTS, columns = [PATIENT_ID, NAME];\n# table INVENTORY_ASSIGNMENTS, columns = [ASSIGNMENT_ID, INVENTORY_ID, PATIENT_ID, ASSIGNED_DATETIME, HOSPITAL_ID, WARD_ID, ASSIGNED_BY]\n# Generate a SQL query to "
@@ -162,14 +174,20 @@ with col6_2:
     elif button_example1:
         sql_query = generate_result(table_comment+question_01)
         execute_sql_query(question_01, sql_query)
-    elif button_example2:
-        sql_query = generate_result(table_comment+question_02)
-        execute_sql_query(question_02, sql_query)
     elif button_example3:
-        sql_query = generate_result(table_comment+question_03)
-        execute_sql_query(question_03, sql_query)
-    elif button_example4:
-        sql_query = generate_result(table_comment+question_04)
-        execute_sql_query(question_04, sql_query)
+        with st.expander("See question:"):
+            st.caption(question_03)
+        st.write("Chest xray scan images and generated 3D models")
+        col8_1, col8_2 = st.columns([1,1])
+        with col8_1:
+            image = Image.open('image/lungs_image.jpg')
+            st.image(image, caption='', use_column_width=True)
+        with col8_2:
+            video_file = open('image/3d_lungs.mp4', 'rb')
+            video_bytes = video_file.read()
+            st.video(video_bytes)
+    # elif button_example4:
+    #     sql_query = generate_result(table_comment+question_04)
+    #     execute_sql_query(question_04, sql_query)  
     else:
         st.write("")
