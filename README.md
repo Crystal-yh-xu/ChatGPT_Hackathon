@@ -1,7 +1,7 @@
 # ChatGPT_Hackathon
 
 This is a Streamlit website to communicate with data in Snowflake database through inputing natual language and generating SQL query in ChatGPT interface.
-Please heck out the instructions below to get set up and run the application.
+Please check out the instructions below to get set up and run the application.
 
 
 
@@ -49,7 +49,19 @@ pip instal pandas
 ```
 
 
-### run the app in your new environment
+### Install the requirements
+
+```sh
+pip install -r requirements.txt
+```
+
+
+### Update .env file.
+Add your OpenAI API key and snowflake database credentials to the .env file.
+
+
+
+### Run the app in your new environment
 In the terminal that appears, navigate to the project folder, use Streamlit as usual:
 ```sh
 streamlit run app.py
@@ -133,6 +145,16 @@ pip instal openai
 pip instal pandas
 ```
 
+
+### Install the requirements
+
+```sh
+pip install -r requirements.txt
+```
+
+
+### Update .env file.
+Add your OpenAI API key and snowflake database credentials to the .env file.
 
 
 ### Use your new environment
